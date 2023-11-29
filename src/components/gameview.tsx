@@ -5,8 +5,8 @@ import { useRive, useStateMachineInput } from "@rive-app/react-canvas";
 
 export default function GameView() {
   const { rive, RiveComponent } = useRive({
-    src: "/rhino.riv",
-    artboard: "Rhino",
+    src: "/circle.riv",
+    artboard: "Parent",
     stateMachines: "State Machine 1",
     autoplay: true,
   });
@@ -16,6 +16,14 @@ export default function GameView() {
   let shieldInput = useStateMachineInput(rive, "State Machine 1", "Sheild");
 
   useEffect(() => {
+    if (rive) {
+      console.log("RIVE: ", rive, rive.stateMachineInputs("State Machine 1"));
+      rive.stateMachineInputs("State Machine 1").forEach((input) => {
+        console.log("Input: ", input.name);
+      });
+    } else {
+      console.log("NO RIVE");
+    }
     const onKeyDown = (event: any) => {
       console.log("KEYDOWN: ", event.key);
       switch (event.key) {
